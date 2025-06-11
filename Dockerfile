@@ -1,15 +1,15 @@
 FROM ubuntu:24.04
-MAINTAINER Madhav Raj Maharjan <madhav.maharjan@gmail.com>
+MAINTAINER OneZoom <mail@onezoom.org>
 
 ARG VCS_REF
 ARG UBUNTU_VERSION
 ARG DEBUG=false
 
 LABEL description="Docker baseimage" os_version="Ubuntu ${UBUNTU_VERSION}" \
-      org.label-schema.vcs-ref=${VCS_REF} org.label-schema.vcs-url="https://github.com/madharjan/docker-base"
+      org.label-schema.vcs-ref=${VCS_REF} org.label-schema.vcs-url="https://github.com/onezoom/docker-base"
 
-ENV HOME /root
-ENV UBUNTU_VERSION ${UBUNTU_VERSION}
+ENV HOME=/root
+ENV UBUNTU_VERSION=${UBUNTU_VERSION}
 
 RUN mkdir -p /build
 COPY . /build
