@@ -5,7 +5,6 @@ VERSION = 24.04
 DEBUG ?= true
 PLATFORM ?= 
 
-
 PLATFORM_ARG = $(if $(PLATFORM),--platform $(PLATFORM),)
 DOCKER_USERNAME ?= $(shell read -p "DockerHub Username: " pwd; echo $$pwd)
 DOCKER_PASSWORD ?= $(shell stty -echo; read -p "DockerHub Password: " pwd; stty echo; echo $$pwd)
