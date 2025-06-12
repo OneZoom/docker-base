@@ -6,7 +6,7 @@ Docker baseimage based on [phusion/baseimage-docker](https://github.com/phusion/
 
 To build, run `make build`. To release a new version, change the Ubuntu version in the
 Makefile, and run `make release`, which will run a test suite and, if it passes,
-attempt to push a release to docker.io.
+attempt to push a release to docker.io. You may need to run `make clean` beforehand.
 
 ## Changes
 
