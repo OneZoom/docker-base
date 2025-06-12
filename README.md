@@ -4,10 +4,14 @@
 
 Docker baseimage based on [phusion/baseimage-docker](https://github.com/phusion/baseimage-docker)
 
+To build, run `make build`. To release a new version, change the Ubuntu version in the
+Makefile, and run `make release`, which will run a test suite and, if it passes,
+attempt to push a release to docker.io.
+
 ## Changes
 
 * Removed `ssh` service
-* Updated to Ubuntu 20.04
+* Updated to Ubuntu 24.04
 
 ## Features
 
@@ -16,7 +20,7 @@ Docker baseimage based on [phusion/baseimage-docker](https://github.com/phusion/
 * Using scripts in `my_shutdown.d` to cleanup services before container stop (e.g 80-postfix.sh ..etc)
 * Bats ([bats-core/bats-core](https://github.com/bats-core/bats-core)) based test cases
 
-## Ubuntu 20.04 (docker-base)
+## Ubuntu 24.04 (docker-base)
 
 ### Environment
 
@@ -29,7 +33,7 @@ Docker baseimage based on [phusion/baseimage-docker](https://github.com/phusion/
 
 ```bash
 # clone project
-git clone https://github.com/madharjan/docker-base
+git clone https://github.com/onezoom/docker-base
 cd docker-base
 
 # build
@@ -55,6 +59,6 @@ docker run -d \
   -e DEBUG=false \
   -e DISABLE_SYSLOG=0 \
   -e DISABLE_CRON=0 \
-  --name base madharjan/docker-base:20.04 \
+  --name base onezoom/docker-base:24.04 \
   /sbin/my_init --log-level 3
 ```

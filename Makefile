@@ -1,9 +1,12 @@
 
-NAME = madharjan/docker-base
-VERSION = 20.04
+NAME = onezoom/docker-base
+VERSION = 24.04
 
 DEBUG ?= true
+PLATFORM ?= 
 
+
+PLATFORM_ARG = $(if $(PLATFORM),--platform $(PLATFORM),)
 DOCKER_USERNAME ?= $(shell read -p "DockerHub Username: " pwd; echo $$pwd)
 DOCKER_PASSWORD ?= $(shell stty -echo; read -p "DockerHub Password: " pwd; stty echo; echo $$pwd)
 DOCKER_LOGIN ?= $(shell cat ~/.docker/config.json | grep "docker.io" | wc -l)
@@ -20,7 +23,7 @@ else
 endif
 
 build:
-	docker build \
+	docker build $(PLATFORM_ARG) \
 	 --build-arg UBUNTU_VERSION=${VERSION} \
 	 --build-arg VCS_REF=`git rev-parse --short HEAD` \
 	 --build-arg DEBUG=$(DEBUG) \
@@ -29,21 +32,21 @@ build:
 run:
 	@if ! docker images $(NAME) | awk '{ print $$2 }' | grep -q -F $(VERSION); then echo "$(NAME) version $(VERSION) is not yet built. Please run 'make build'"; false; fi
 
-	docker run -d \
+	docker run $(PLATFORM_ARG) -d \
 		-e DEBUG=$(DEBUG) \
 		--name base $(NAME):$(VERSION) \
 		/sbin/my_init --log-level 3
 
 	sleep 1
 
-	docker run -d \
+	docker run $(PLATFORM_ARG) -d \
 		-e DEBUG=$(DEBUG) \
 		-e DISABLE_SYSLOG=1 \
 		--name base_no_syslog $(NAME):$(VERSION)
 
 	sleep 1
 
-	docker run -d \
+	docker run $(PLATFORM_ARG) -d \
 		-e DEBUG=$(DEBUG) \
 		-e DISABLE_CRON=1 \
 		--name base_no_cron $(NAME):$(VERSION)
